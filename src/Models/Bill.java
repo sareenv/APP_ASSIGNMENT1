@@ -3,24 +3,20 @@
  * Student ID: 40186182
  * */
 package Models;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Bill {
     private String companyName;
     private double amount;
     private Date billDueDate;
-    private Date billStartDate;
-    private Date billEndDate;
 
     // default constructor.
     public Bill(String companyName, double amount,
-                Date billDueDate, Date billStartDate,
-                Date billEndDate) {
+                Date billDueDate) {
         this.companyName = companyName;
         this.amount = amount;
         this.billDueDate = billDueDate;
-        this.billStartDate = billStartDate;
-        this.billEndDate = billEndDate;
     }
 
     public static Bill addBill(Scanner snc) {
@@ -28,18 +24,28 @@ public class Bill {
         String companyName = snc.next();
         System.out.println("Please enter the amount: Double Format");
         double amount = snc.nextDouble();
-        System.out.println("Please enter the bill start date");
-        return null;
+        System.out.println("Please enter the bill due date(MM/dd/yyyy)");
+        String date = snc.next();
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        
+        Bill bill = null;
+        try {
+        	bill = new Bill(companyName,amount,dateFormat.parse(date));
+        	//System.out.println("Hello " + bill.toString());
+        }catch(Exception ex) {
+        	System.out.println("Invalid Date !! ");
+        	//02 Jan 2018
+        }
+        return bill;
     }
+    
 
     @Override
     public String toString() {
-        return "Bill{" +
+        return "Issued Bill cheque to " +
                 "company=" + companyName +
                 ", amount=" + amount +
-                ", billDueDate=" + billDueDate +
-                ", billStartDate=" + billStartDate +
-                ", billEndDate=" + billEndDate +
-                '}';
+                ", billDueDate=" + billDueDate;
     }
 }

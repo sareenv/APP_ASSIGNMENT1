@@ -21,7 +21,7 @@ public class Main implements MainInterface {
     public Main(ArrayList<Object> entity) {
         objects = entity;
     }
-
+    
     @Override
     public Employee findEmployeeByID(Integer employeeID) {
         for (Object obj: objects) {
@@ -36,9 +36,19 @@ public class Main implements MainInterface {
         return null;
     }
 
+    @Override
+    public Employee findEmployee(Object obj) {
+    	
+    	if (obj != null && obj instanceof Employee) {
+            // Type cast the object into the employee.
+            Employee employee = (Employee) obj;
+            return employee;
+        }
+        return null;
+    }
+
     public void displayMenu(Scanner scn) {
-        boolean validMenuItemSelected = false;
-        while(validMenuItemSelected == false) {
+        while(true) {
             System.out.println("" +
                     "1. Add an employee \n" +
                     "2. Add a bill \n" +
@@ -51,14 +61,42 @@ public class Main implements MainInterface {
                 continue;
             } else  {
                 // valid menu item selected.
-                if (selectedOption == 1 && addEmployee(scn) != null) {
+                if (selectedOption == 1) {
                     Employee employee = addEmployee(scn);
-                    if (employee == null) { validMenuItemSelected = false; continue;}
+                    if (employee == null) { continue;}
+                    System.out.println("Employee added successfully !!");
                     objects.add(employee);
-                    validMenuItemSelected = true;
                 } else if (selectedOption == 2) {
-                    validMenuItemSelected = true;
+                	// add a bill
+                	Bill bill = Bill.addBill(scn);
+                	if(bill == null) { continue;}
+                	System.out.println("Bill added successfully !!");
+                	objects.add(bill);                    
                 } else if(selectedOption == 3) {
+                	// issues cheques
+                	
+                	int objectSize = objects.size();
+                	if(objectSize == 0) {
+                		System.out.println("Empty Collection, please add items for issuing cheques");
+                		continue;
+                	}
+                	System.out.println("*************** COMMENCING PAYMENTS ***************");
+                	for(int i = 0; i < objectSize; i++) {
+                		Object currObj = objects.get(i);
+                		Employee emp = findEmployee(currObj);
+                		if(emp == null) {
+                			// not an employee object, is a bill object and remove that bill object from the array
+                			Bill bill = (Bill) currObj;
+                			System.out.println(bill.toString());
+                			objects.remove(i);                			
+                		}else {
+                			// is a employee object and issue his salary and print the payslip
+                			System.out.println(emp.toString());
+                			
+                		}
+                	}
+                	System.out.println("*************************************************");
+                	
 
                 } else {
                     // exit the program & close the scanner
@@ -105,13 +143,8 @@ public class Main implements MainInterface {
                 continue;
             }
         }
-        if (employee != null) { objects.add(employee); }
+        
         return employee;
-    }
-
-    @Override
-    public Bill addEmployeeBill(Scanner snc) {
-        return null;
     }
 
     public static void main(String[] args) {
@@ -120,4 +153,6 @@ public class Main implements MainInterface {
         driver.displayMenu(snc);
         snc.close();
     }
+
+
 }

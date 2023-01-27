@@ -29,13 +29,12 @@ public abstract class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Issued Employee Salary :- " +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", monthlySalary=" + monthlySalary +
-                '}';
+                ", monthlySalary=" + getMonthlySalary();
     }
 
     public void setMonthlySalary(double monthlySalary) {
