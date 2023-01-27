@@ -5,8 +5,6 @@ import Models.Bill;
 import Models.Employee;
 import Models.PermanentEmployee;
 import Models.TemporaryEmployee;
-
-import javax.naming.spi.DirObjectFactory;
 import java.util.*;
 
 public class Main implements MainInterface {
@@ -67,7 +65,6 @@ public class Main implements MainInterface {
                     scn.close();
                     System.exit(0);
                 }
-
             }
         }
 
@@ -85,11 +82,22 @@ public class Main implements MainInterface {
         while (isValidSelection == false) {
             int selection = snc.nextInt();
             if (selection == 1) {
-                employee = PermanentEmployee.registerEmployee(snc);
-                isValidSelection = true;
+                try {
+                    employee = PermanentEmployee.registerEmployee(snc);
+                    isValidSelection = true;
+                } catch (InputMismatchException exception) {
+                    System.out.println("Invalid input exception" +
+                            "while registering the permanent employee");
+                    System.out.println("Try Again");
+                }
             } else if (selection == 2) {
-                employee = TemporaryEmployee.registerEmployee(snc);
-                isValidSelection = true;
+                try {
+                    employee = TemporaryEmployee.registerEmployee(snc);
+                    isValidSelection = true;
+                } catch (InputMismatchException exception) {
+                    System.out.println("Invalid input exception" +
+                            "while registering the temporary employee");
+                }
             } else if (selection == 3) {
                 return null;
             }else {

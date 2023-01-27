@@ -1,6 +1,9 @@
-package Models;
+/*
+ * @Author: Vinayak Sareen
+ * Student ID: 40186182
+ * */
 
-import java.util.Scanner;
+package Models;
 
 public abstract class Employee {
     private int id;

@@ -1,7 +1,13 @@
+/*
+ * @Author: Vinayak Sareen
+ * Student ID: 40186182
+ * */
+
 package Models;
 
 import Interface.EmployeeInterface;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TemporaryEmployee extends Employee
@@ -41,7 +47,8 @@ public class TemporaryEmployee extends Employee
         return super.getMonthlySalary();
     }
 
-    public static Employee registerEmployee(Scanner snc) {
+    public static Employee registerEmployee(Scanner snc)
+            throws InputMismatchException {
         Employee employee;
         System.out.println("Please Enter the Employee id: ");
         int employeeID = snc.nextInt();

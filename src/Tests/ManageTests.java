@@ -1,21 +1,76 @@
+/*
+* @Author: Vinayak Sareen
+* Student ID: 40186182
+* */
+
 package Tests;
 
 import Main.Main;
 import Models.Employee;
 import org.junit.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageTests {
-    @Test
-    public void addInValidEmployeeStream() {
-        Scanner snc = new Scanner(System.in);
-        Main driver = new Main();
-        Employee registerEmployee = driver.addEmployee(snc);
-        Employee foundInRegisteredDirectory =
-                driver.findEmployeeByID(registerEmployee.getId());
-        snc.close();
-        Assert.assertNotEquals(registerEmployee, null);
-        Assert.assertNotEquals(foundInRegisteredDirectory, null);
+    private Main driver;
+
+    @Before
+    public void before() {
+        driver = new Main();
     }
+
+    @After
+    public void after() {
+        Main.objects = new ArrayList<>();
+    }
+
+    @Test
+    public void addPermanentEmployee() {
+        try {
+            File file = new File("");
+            String path = file.getAbsoluteFile().toString()
+                    + "/src/Tests/AddPermanentEmployee.txt";
+            file = new File(path);
+            FileInputStream inputStream = new FileInputStream(file);
+            Scanner snc = new Scanner(inputStream);
+            Employee registerEmployee = driver.addEmployee(snc);
+            Employee foundInRegisteredDirectory =
+                    driver.findEmployeeByID(registerEmployee.getId());
+            snc.close();
+            inputStream.close();
+            Assert.assertNotEquals(registerEmployee, null);
+            Assert.assertNotEquals(foundInRegisteredDirectory, null);
+        } catch (Exception exception) {
+            Assert.fail(exception.getMessage());
+        }
+    }
+
+
+    @Test
+    public void addTemporaryEmployee() {
+        try {
+            File file = new File("");
+            String path = file.getAbsoluteFile().toString()
+                    + "/src/Tests/AddTemporaryEmployee.txt";
+            file = new File(path);
+            FileInputStream inputStream = new FileInputStream(file);
+            Scanner snc = new Scanner(inputStream);
+            Employee registerEmployee = driver.addEmployee(snc);
+            Employee foundInRegisteredDirectory =
+                    driver.findEmployeeByID(registerEmployee.getId());
+            snc.close();
+            inputStream.close();
+            Assert.assertNotEquals(registerEmployee, null);
+            Assert.assertNotEquals(foundInRegisteredDirectory, null);
+        } catch (Exception exception) {
+            Assert.fail(exception.getMessage());
+        }
+    }
+
+
+
+
 }

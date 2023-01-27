@@ -1,31 +1,41 @@
+/*
+ * @Author: Vinayak Sareen
+ * Student ID: 40186182
+ * */
 package Models;
 import java.util.*;
 
 public class Bill {
-    private Company company;
+    private String companyName;
     private double amount;
     private Date billDueDate;
     private Date billStartDate;
     private Date billEndDate;
 
     // default constructor.
-    public Bill(Company company, double amount, Date billDueDate, Date billStartDate, Date billEndDate) {
-        this.company = company;
+    public Bill(String companyName, double amount,
+                Date billDueDate, Date billStartDate,
+                Date billEndDate) {
+        this.companyName = companyName;
         this.amount = amount;
         this.billDueDate = billDueDate;
         this.billStartDate = billStartDate;
         this.billEndDate = billEndDate;
     }
-    // copy constructor.
-    public Bill(Bill bill) {
-        this.amount = bill.amount;
-        this.company = new Company(bill.company.getCompanyName());
+
+    public static Bill addBill(Scanner snc) {
+        System.out.println("Please enter the company name: ");
+        String companyName = snc.next();
+        System.out.println("Please enter the amount: Double Format");
+        double amount = snc.nextDouble();
+        System.out.println("Please enter the bill start date");
+        return null;
     }
 
     @Override
     public String toString() {
         return "Bill{" +
-                "company=" + company +
+                "company=" + companyName +
                 ", amount=" + amount +
                 ", billDueDate=" + billDueDate +
                 ", billStartDate=" + billStartDate +
