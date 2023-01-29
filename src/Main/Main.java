@@ -1,3 +1,11 @@
+/*
+* @Author: Dikshant Yadav
+* Student ID: 40221623
+*  
+* @Author: Vinayak Sareen
+* Student ID: 40186182
+* */
+
 package Main;
 
 import Interface.MainInterface;
@@ -7,6 +15,7 @@ import Models.PermanentEmployee;
 import Models.TemporaryEmployee;
 import java.util.*;
 
+// Main class for execution of application
 public class Main implements MainInterface {
 
     // objects to store the bills and employee information.
@@ -36,6 +45,7 @@ public class Main implements MainInterface {
         return null;
     }
 
+    // checking the object belonngs to employee class.
     @Override
     public Employee findEmployee(Object obj) {
     	
@@ -47,6 +57,7 @@ public class Main implements MainInterface {
         return null;
     }
 
+    // Menu of the application
     public void displayMenu(Scanner scn) {
         while(true) {
             System.out.println("" +
@@ -62,18 +73,23 @@ public class Main implements MainInterface {
             } else  {
                 // valid menu item selected.
                 if (selectedOption == 1) {
+                	
+                	// Add employee, if user option -> 1.
                     Employee employee = addEmployee(scn);
                     if (employee == null) { continue;}
                     System.out.println("Employee added successfully !!");
                     objects.add(employee);
+                    
                 } else if (selectedOption == 2) {
-                	// add a bill
+
+                	// add a bill, if user option -> 1
                 	Bill bill = Bill.addBill(scn);
                 	if(bill == null) { continue;}
                 	System.out.println("Bill added successfully !!");
                 	objects.add(bill);                    
+                	
                 } else if(selectedOption == 3) {
-                	// issues cheques
+                	// issues cheques for Company Bills and to its employees
                 	
                 	int objectSize = objects.size();
                 	if(objectSize == 0) {
@@ -82,15 +98,21 @@ public class Main implements MainInterface {
                 	}
                 	System.out.println("*************** COMMENCING PAYMENTS ***************");
                 	for(int i = 0; i < objectSize; i++) {
+                		
+                		//fetching the every object from the objects arraylist.
                 		Object currObj = objects.get(i);
+                		
+                		//checking if object belongs to employee class or not.
                 		Employee emp = findEmployee(currObj);
                 		if(emp == null) {
-                			// not an employee object, is a bill object and remove that bill object from the array
+                			/* If object is not an employee then it must be a bill and remove that bill object from the array
+                			   after the cheques has been processed
+                			*/
                 			Bill bill = (Bill) currObj;
                 			System.out.println(bill.toString());
                 			objects.remove(i);                			
                 		}else {
-                			// is a employee object and issue his salary and print the payslip
+                			// Current object is a confirmed employee object and issue his salary and print the payslip
                 			System.out.println(emp.toString());
                 			
                 		}
@@ -100,6 +122,7 @@ public class Main implements MainInterface {
 
                 } else {
                     // exit the program & close the scanner
+                	System.out.println("Thanks for using, and come back soon:)");
                     scn.close();
                     System.exit(0);
                 }
@@ -108,10 +131,13 @@ public class Main implements MainInterface {
 
     }
 
+    // Adding the employee either as full-time or part-time.
     @Override
     public Employee addEmployee(Scanner snc) {
         boolean isValidSelection = false;
         Employee employee = null;
+        
+        //Selection menu for addition of employee
         System.out.println("Please select from menu \n" +
                 "1. Permanent employee \n" +
                 "2. Part time employee \n" +
@@ -121,6 +147,7 @@ public class Main implements MainInterface {
             int selection = snc.nextInt();
             if (selection == 1) {
                 try {
+                	// enroll the employee as full time employee
                     employee = PermanentEmployee.registerEmployee(snc);
                     isValidSelection = true;
                 } catch (InputMismatchException exception) {
@@ -130,16 +157,23 @@ public class Main implements MainInterface {
                 }
             } else if (selection == 2) {
                 try {
+                	// enroll the employee as part time employee
                     employee = TemporaryEmployee.registerEmployee(snc);
                     isValidSelection = true;
                 } catch (InputMismatchException exception) {
+                	
+                	//Exception handling, user has inputed wrong information opposite of which system is expecting
                     System.out.println("Invalid input exception" +
                             "while registering the temporary employee");
                 }
             } else if (selection == 3) {
+            	
+            	// return to previous screen of menu
                 return null;
             }else {
-                System.out.println("Wrong selection try again! ");
+            	
+            	// ask User to provide the number selection from 1 to 3.
+                System.out.println("Wrong selection try again!, Please input the number from 1 to 3 .");
                 continue;
             }
         }
@@ -149,8 +183,15 @@ public class Main implements MainInterface {
 
     public static void main(String[] args) {
         Main driver = new Main();
+        
+        
+        //Initializing the scanner object.
         Scanner snc = new Scanner(System.in);
+        
+        // calling the driver method of the application
         driver.displayMenu(snc);
+        
+        //closing the scanner class
         snc.close();
     }
 

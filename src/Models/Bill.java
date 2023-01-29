@@ -1,7 +1,10 @@
 /*
- * @Author: Vinayak Sareen
- * Student ID: 40186182
- * */
+* @Author: Dikshant Yadav
+* Student ID: 40221623
+*  
+* @Author: Vinayak Sareen
+* Student ID: 40186182
+* */
 package Models;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,6 +22,7 @@ public class Bill {
         this.billDueDate = billDueDate;
     }
 
+    // Adding the bill of the employee on the basis of user input
     public static Bill addBill(Scanner snc) {
         System.out.println("Please enter the company name: ");
         String companyName = snc.next();
@@ -32,15 +36,15 @@ public class Bill {
         Bill bill = null;
         try {
         	bill = new Bill(companyName,amount,dateFormat.parse(date));
-        	//System.out.println("Hello " + bill.toString());
         }catch(Exception ex) {
-        	System.out.println("Invalid Date !! ");
-        	//02 Jan 2018
+        	System.out.println("Invalid Date !!, Please enter date in (MM/dd/yyyy)");
         }
+        //Returning the bill object after successful creation
         return bill;
     }
     
-
+    
+    // Overriding the toString method from Object class to customized printing of object properties.
     @Override
     public String toString() {
         return "Issued Bill cheque to " +
