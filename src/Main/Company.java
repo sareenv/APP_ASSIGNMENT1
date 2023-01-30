@@ -197,7 +197,8 @@ public class Company implements CompanyInterface {
     			   after the cheques has been processed
     			*/
     			Bill bill = (Bill) currObj;
-    			System.out.println(bill.toString());
+    			int sequentialNumber = new Random().nextInt(900000) + 100000;
+    			System.out.println(bill.toString() + ", chequeNumber: " + sequentialNumber);
     			objects.remove(i);                			
     		}else {
     			// Current object is a confirmed employee object and issue his salary and print the payslip
