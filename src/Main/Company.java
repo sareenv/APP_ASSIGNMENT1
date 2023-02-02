@@ -207,8 +207,6 @@ public class Company implements CompanyInterface {
     		}
     	}
     	System.out.println("*************************************************");
-		
+
 	}
-
-
 }

@@ -19,5 +19,4 @@ public interface CompanyInterface {
     public Employee addEmployee(Scanner snc);
     public Bill addBill(Scanner snc);
     public void issueChecques();
-    
 }

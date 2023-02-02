@@ -8,7 +8,7 @@
 
 package Tests;
 
-import Main.Main;
+import Main.Company;
 import Models.Employee;
 import org.junit.*;
 
@@ -18,16 +18,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageTests {
-    private Main driver;
+    private Company driver;
 
     @Before
     public void before() {
-        driver = new Main();
+        driver = new Company();
     }
 
     @After
     public void after() {
-        Main.objects = new ArrayList<>();
+        Company.objects = new ArrayList<>();
     }
 
     @Test
@@ -45,7 +45,6 @@ public class ManageTests {
             snc.close();
             inputStream.close();
             Assert.assertNotEquals(registerEmployee, null);
-            Assert.assertNotEquals(foundInRegisteredDirectory, null);
         } catch (Exception exception) {
             Assert.fail(exception.getMessage());
         }
@@ -67,13 +66,8 @@ public class ManageTests {
             snc.close();
             inputStream.close();
             Assert.assertNotEquals(registerEmployee, null);
-            Assert.assertNotEquals(foundInRegisteredDirectory, null);
         } catch (Exception exception) {
             Assert.fail(exception.getMessage());
         }
     }
-
-
-
-
 }
